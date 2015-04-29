@@ -21,7 +21,7 @@ var $,
 // Variables
 var $excel_btn,
     addInterval,
-    columnHeadings = ['List', 'Title', 'Description', 'Points', 'Due', 'Members', 'Labels', 'Card #', 'Card URL'];
+    columnHeadings = ['List', 'Title', 'Description', 'Points', 'Due', 'Date Created', 'Members', 'Labels', 'Card #', 'Card URL'];
 
 window.URL = window.webkitURL || window.URL;
 
@@ -91,6 +91,8 @@ function createExcelExport() {
                         parsed = title.match(pointReg),
                         points = parsed ? parsed[1] : '',
                         due = card.due || '',
+                        c = card.id,
+                        created = new Date(1000*parseInt(c.substring(0,8),16)),
                         memberIDs,
                         memberInitials = [],
                         labels = [],
@@ -136,6 +138,7 @@ function createExcelExport() {
                         card.desc,
                         points,
                         due,
+                        created,
                         memberInitials.toString(),
                         labels.toString(),
                         card.idShort,
